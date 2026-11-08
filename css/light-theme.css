@@ -1,0 +1,308 @@
+/* ==========================================================================
+   LIGHT THEME (GIAO DIỆN SÁNG HIỆN ĐẠI — DEFAULT)
+   Applies clean, high-contrast Enterprise Light Mode when body is not .theme-dark
+   ========================================================================== */
+
+body:not(.theme-dark) {
+  --bg-gold-board: #f1f5f9;
+  --bg-gold-board-alt: #e2e8f0;
+  --bg-gold-bar: #d99b26;
+  --bg-gold-bar-hover: #b45309;
+  --bg-panel-dark: #ffffff;
+  --bg-panel-table: #ffffff;
+  --bg-panel-status: #ffffff;
+  --bg-bar-track: #e2e8f0;
+  --text-gold: #b45309;
+  --text-gold-bright: #92400e;
+  --text-overdue-red: #dc2626;
+  --text-overdue-red-bright: #b91c1c;
+  --pie-red: #ef4444;
+  --white: #0f172a;
+  --text-muted: #64748b;
+  --border-board: #cbd5e1;
+  --border-panel: #e2e8f0;
+  --border-table-row: #f1f5f9;
+  --row-hover-bg: #fef2f2;
+  --shadow-panel: 0 4px 14px rgba(15, 23, 42, 0.06);
+
+  --ws-bg-dark: #f1f5f9;
+  --ws-topbar-bg: #ffffff;
+  --ws-panel-bg: #ffffff;
+  --ws-panel-elevated: #f8fafc;
+  --ws-panel-hover: #f1f5f9;
+  --ws-border: #e2e8f0;
+  --ws-border-light: #cbd5e1;
+  --ws-gold: #d99b26;
+  --ws-gold-light: #f59e0b;
+  --ws-gold-dark: #b45309;
+  --ws-text-primary: #0f172a;
+  --ws-text-secondary: #334155;
+  --ws-text-muted: #64748b;
+
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* 1. Top Management App Bar in Light Mode */
+body:not(.theme-dark) .app-topbar {
+  background: #ffffff !important;
+  border-bottom: 2px solid #eab308 !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06) !important;
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .brand-badge {
+  background: linear-gradient(135deg, #eab308 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+}
+
+body:not(.theme-dark) .brand-title {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+body:not(.theme-dark) .nav-tab {
+  color: #475569 !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body:not(.theme-dark) .nav-tab:hover {
+  color: #0f172a !important;
+  background: #fef3c7 !important;
+  border-color: #f59e0b !important;
+}
+
+body:not(.theme-dark) .nav-tab.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  border-color: #b45309 !important;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.28) !important;
+}
+
+body:not(.theme-dark) .nav-tab .tab-count {
+  background: rgba(15, 23, 42, 0.08) !important;
+  color: inherit !important;
+}
+
+body:not(.theme-dark) .nav-tab.active .tab-count {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+body:not(.theme-dark) .btn {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+body:not(.theme-dark) .btn:hover {
+  background: #f8fafc !important;
+  border-color: #d97706 !important;
+  color: #b45309 !important;
+}
+
+body:not(.theme-dark) .btn.btn-gold,
+body:not(.theme-dark) .btn.btn-primary {
+  background: linear-gradient(135deg, #eab308 0%, #d97706 100%) !important;
+  border-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+body:not(.theme-dark) .btn.btn-gold:hover,
+body:not(.theme-dark) .btn.btn-primary:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  color: #ffffff !important;
+}
+
+body:not(.theme-dark) .dropdown-menu {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.14) !important;
+}
+
+body:not(.theme-dark) .dropdown-item {
+  color: #1e293b !important;
+}
+
+body:not(.theme-dark) .dropdown-item:hover {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+body:not(.theme-dark) .dropdown-divider {
+  border-top-color: #e2e8f0 !important;
+}
+
+/* 2. Active Filter Strip in Light Mode */
+body:not(.theme-dark) .active-filter-bar {
+  background: #fffbeb !important;
+  border-bottom: 1px solid #fde68a !important;
+  color: #92400e !important;
+}
+
+body:not(.theme-dark) .filter-chip {
+  background: #ffffff !important;
+  border: 1px solid #f59e0b !important;
+  color: #1e293b !important;
+}
+
+/* 3. Main Executive Dashboard Canvas & Cards in Light Mode */
+body:not(.theme-dark) .dashboard-canvas {
+  background: linear-gradient(180deg, #fef9ec 0%, #f1f5f9 100%) !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06) !important;
+}
+
+body:not(.theme-dark) .kpi-label-box {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 4px solid #d97706 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
+
+body:not(.theme-dark) .kpi-label-box.gold-text {
+  color: #b45309 !important;
+}
+
+body:not(.theme-dark) .kpi-value-box {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fcd34d !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
+
+body:not(.theme-dark) .col-left-progress,
+body:not(.theme-dark) .card-avg-progress,
+body:not(.theme-dark) .card-status-pie,
+body:not(.theme-dark) .card-resource-usage,
+body:not(.theme-dark) .panel-dark,
+body:not(.theme-dark) .panel-status-gray {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+}
+
+body:not(.theme-dark) .panel-title,
+body:not(.theme-dark) .overdue-title-text {
+  color: #b45309 !important;
+}
+
+body:not(.theme-dark) .overdue-title-box,
+body:not(.theme-dark) .today-date-box {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+}
+
+body:not(.theme-dark) #today-date-text {
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .overdue-table-panel {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* 4. Extended Workspace Views (Tasks Manager, Kanban, Gantt, Resources) in Light Mode */
+body:not(.theme-dark) .workspace-view {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .itpm-ext-wrap {
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .itpm-ext-header {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05) !important;
+}
+
+body:not(.theme-dark) .itpm-ext-title-group h2 {
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .itpm-ext-title-group p {
+  color: #475569 !important;
+}
+
+body:not(.theme-dark) .itpm-filter-bar,
+body:not(.theme-dark) .itpm-proj-card,
+body:not(.theme-dark) .itpm-table-card,
+body:not(.theme-dark) .itpm-kanban-col,
+body:not(.theme-dark) .itpm-gantt-card,
+body:not(.theme-dark) .itpm-res-card,
+body:not(.theme-dark) .itpm-stat-box {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+body:not(.theme-dark) .itpm-kanban-card {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .itpm-kanban-card:hover {
+  background: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08) !important;
+}
+
+body:not(.theme-dark) .itpm-input,
+body:not(.theme-dark) .itpm-select {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .itpm-table th {
+  background: #f8fafc !important;
+  color: #334155 !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+body:not(.theme-dark) .itpm-table td {
+  color: #1e293b !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body:not(.theme-dark) .itpm-table tr:hover td {
+  background: #fefce8 !important;
+}
+
+body:not(.theme-dark) .itpm-proj-title,
+body:not(.theme-dark) .itpm-kcard-title,
+body:not(.theme-dark) .itpm-res-name,
+body:not(.theme-dark) .itpm-gantt-row-label {
+  color: #0f172a !important;
+}
+
+body:not(.theme-dark) .itpm-proj-meta,
+body:not(.theme-dark) .itpm-kcard-meta,
+body:not(.theme-dark) .itpm-res-role {
+  color: #475569 !important;
+}
+
+body:not(.theme-dark) .itpm-btn:not(.itpm-btn-gold):not(.itpm-btn-danger) {
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+body:not(.theme-dark) .itpm-btn:not(.itpm-btn-gold):not(.itpm-btn-danger):hover {
+  background: #fef3c7 !important;
+  border-color: #d97706 !important;
+  color: #92400e !important;
+}

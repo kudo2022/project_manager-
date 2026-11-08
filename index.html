@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Lý Dự Án IT Doanh Nghiệp — Executive Dashboard</title>
+
+  <!-- Google Fonts: Inter & Roboto Condensed / Oswald for bold condensed KPI & Panel headers -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Roboto+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/workspace.css" />
+  <link rel="stylesheet" href="css/light-theme.css" />
+</head>
+<body>
+  <!-- =====================================================================
+       TOP MANAGEMENT TOOLBAR
+       ===================================================================== -->
+  <header class="app-topbar" id="app-topbar">
+    <div class="topbar-brand">
+      <span class="brand-badge">IT PMO</span>
+      <span class="brand-title">HỆ THỐNG QUẢN LÝ DỰ ÁN CNTT</span>
+    </div>
+
+    <!-- View Switcher Tabs -->
+    <nav class="nav-tabs" id="main-nav-tabs" aria-label="Chế độ xem hệ thống">
+      <button type="button" class="nav-tab active" data-tab="dashboard">
+        📊 Bảng Điều Khiển (Dashboard)
+      </button>
+      <button type="button" class="nav-tab" data-tab="tasks">
+        📋 Quản Lý Công Việc &amp; Dự Án
+        <span class="tab-count" id="tab-count-tasks">37</span>
+      </button>
+      <button type="button" class="nav-tab" data-tab="kanban">
+        🗂️ Bảng Kanban
+      </button>
+      <button type="button" class="nav-tab" data-tab="gantt">
+        📅 Tiến Độ Gantt
+      </button>
+      <button type="button" class="nav-tab" data-tab="resources">
+        👥 Nguồn Lực IT
+        <span class="tab-count" id="tab-count-resources">7</span>
+      </button>
+    </nav>
+
+    <!-- Action Controls on the Right -->
+    <div class="topbar-actions">
+      <button
+        type="button"
+        class="btn btn-gold"
+        id="btn-add-project"
+        onclick="window.ITPM && window.ITPM.modals && window.ITPM.modals.openProjectModal()"
+        title="Thêm dự án CNTT mới"
+      >
+        + Dự Án
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="btn-add-task"
+        onclick="window.ITPM && window.ITPM.modals && window.ITPM.modals.openTaskModal()"
+        title="Thêm công việc mới"
+      >
+        + Công Việc
+      </button>
+      <button
+        type="button"
+        class="btn"
+        id="btn-export-csv"
+        onclick="window.ITPM && window.ITPM.io && window.ITPM.io.exportCSV()"
+        title="Xuất báo cáo ra file Excel / CSV (UTF-8)"
+      >
+        Xuất Excel/CSV
+      </button>
+
+      <!-- Save / Open File JSON Dropdown -->
+      <div class="dropdown-wrapper" id="json-dropdown-wrapper">
+        <button
+          type="button"
+          class="btn"
+          id="btn-json-dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          title="Lưu/Mở File JSON hoặc khôi phục dữ liệu mẫu"
+        >
+          Lưu/Mở File JSON ▾
+        </button>
+        <div class="dropdown-menu" id="json-dropdown-menu">
+          <button
+            type="button"
+            class="dropdown-item"
+            id="btn-export-json"
+            onclick="window.ITPM && window.ITPM.io && window.ITPM.io.exportJSON()"
+          >
+            💾 Xuất File JSON (Lưu)
+          </button>
+          <button
+            type="button"
+            class="dropdown-item"
+            id="btn-import-json"
+            onclick="document.getElementById('import-json-input').click()"
+          >
+            📂 Mở File JSON (Nhập)
+          </button>
+          <div class="dropdown-divider"></div>
+          <button
+            type="button"
+            class="dropdown-item"
+            id="btn-reset-seed"
+            onclick="window.ITPM && window.ITPM.app && window.ITPM.app.resetSampleData()"
+          >
+            🔄 Khôi phục dữ liệu mẫu
+          </button>
+        </div>
+        <input
+          type="file"
+          id="import-json-input"
+          accept=".json,application/json"
+          hidden
+        />
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-outline"
+        id="btn-theme-toggle"
+        onclick="window.ITPM && window.ITPM.app && window.ITPM.app.toggleTheme()"
+        title="Chuyển đổi giao diện Sáng / Tối"
+      >
+        ☀️ Sáng
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline"
+        id="btn-presentation-mode"
+        onclick="window.ITPM && window.ITPM.io && window.ITPM.io.togglePresentationMode()"
+        title="Chế độ trình chiếu toàn màn hình (Phím Esc để thoát)"
+      >
+        📺 Trình chiếu
+      </button>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       ACTIVE FILTER STRIP (Hidden when no filter is active)
+       ===================================================================== -->
+  <div class="active-filter-bar" id="active-filter-bar" hidden>
+    <div class="filter-chips-group">
+      <span class="filter-bar-label">🔍 Bộ lọc đang bật:</span>
+      <div class="active-filters-list" id="active-filter-chips"></div>
+    </div>
+    <button
+      type="button"
+      class="btn-clear-filters"
+      id="btn-clear-filters"
+      onclick="window.ITPM && window.ITPM.store && window.ITPM.store.clearFilters()"
+    >
+      ✕ Xóa bộ lọc
+    </button>
+  </div>
+
+  <!-- =====================================================================
+       MAIN EXECUTIVE DASHBOARD VIEW (Matches Reference Screenshot)
+       ===================================================================== -->
+  <main id="view-dashboard" class="dashboard-canvas">
+    <!-- Top KPI Row (.kpi-ribbon) -->
+    <section class="kpi-ribbon three-groups" aria-label="Chỉ số KPI tổng quan">
+      <!-- Group 1: TỔNG DỰ ÁN -->
+      <div class="kpi-group interactive" id="kpi-group-projects" data-kpi="projects" title="Tổng số dự án CNTT (Nhấn để xóa bộ lọc dự án)">
+        <div class="kpi-label-box">TỔNG DỰ ÁN</div>
+        <div class="kpi-value-box" id="kpi-total-projects" data-kpi-value="totalProjects">7</div>
+      </div>
+
+      <!-- Group 2: CÔNG VIỆC -->
+      <div class="kpi-group interactive" id="kpi-group-tasks" data-kpi="tasks" title="Tổng số công việc trong hệ thống (Nhấn để xem toàn bộ)">
+        <div class="kpi-label-box gold-text">CÔNG VIỆC</div>
+        <div class="kpi-value-box" id="kpi-total-tasks" data-kpi-value="totalTasks">37</div>
+      </div>
+
+      <!-- Group 3: HOÀN THÀNH -->
+      <div class="kpi-group interactive" id="kpi-group-completed" data-kpi="completed" title="Nhấn để chuyển đổi hiển thị số lượng hoàn thành (37 theo mẫu / 18 thực tế hoàn thành 100%)">
+        <div class="kpi-label-box gold-text">HOÀN THÀNH</div>
+        <div class="kpi-value-box" id="kpi-completed-tasks" data-kpi-value="completedTasks">37</div>
+      </div>
+    </section>
+
+    <!-- Main 2-Column Dashboard Grid (.dashboard-grid) -->
+    <div class="dashboard-grid">
+      <!-- Left Column: TIẾN ĐỘ DỰ ÁN -->
+      <section class="col-left-progress panel-dark" data-panel="project-progress" aria-label="Tiến độ dự án">
+        <div class="panel-header">
+          <h2 class="panel-title">TIẾN ĐỘ DỰ ÁN</h2>
+          <button
+            type="button"
+            class="btn btn-sm btn-ghost"
+            id="btn-quick-add-project"
+            onclick="window.ITPM && window.ITPM.modals && window.ITPM.modals.openProjectModal()"
+            title="Thêm dự án mới"
+            aria-label="Thêm dự án mới"
+          >
+            +
+          </button>
+        </div>
+        <div id="chart-project-progress" data-chart="project-progress"></div>
+      </section>
+
+      <!-- Right Column: Overdue Strip + Table + Bottom Split Section -->
+      <section class="col-right-main">
+        <!-- Project Table Header Strip -->
+        <div class="overdue-header-strip">
+          <div
+            class="overdue-title-box"
+            id="overdue-header-box"
+            data-role="overdue-header"
+            data-panel="overdue-header"
+            title="Danh sách dự án & trạng thái thực hiện"
+          >
+            <h2 class="overdue-title-text">DỰ ÁN</h2>
+            <span class="overdue-count-badge" id="overdue-count-badge" hidden>6</span>
+          </div>
+
+          <div
+            class="today-date-box"
+            id="today-date-box"
+            data-role="reference-date"
+            title="Nhấn để đổi ngày tham chiếu Today (Mặc định: 08/10/2025)"
+          >
+            <span id="today-date-text" data-role="reference-date-text">Today:&nbsp;&nbsp;08/10/2025</span>
+            <input
+              type="date"
+              id="ref-date-picker"
+              class="today-date-input"
+              value="2025-10-08"
+              aria-label="Chọn ngày tham chiếu Today"
+              hidden
+            />
+          </div>
+        </div>
+
+        <!-- Project Status Table Container -->
+        <div class="overdue-table-panel">
+          <div class="overdue-table-scroll">
+            <table class="overdue-table" aria-label="Danh sách dự án">
+              <thead>
+                <tr>
+                  <th class="text-center">DỰ ÁN</th>
+                  <th class="text-center">TRẠNG THÁI</th>
+                  <th class="text-center">NGƯỜI LÀM</th>
+                  <th class="text-center">TIẾN ĐỘ</th>
+                </tr>
+              </thead>
+              <tbody id="overdue-table-body" data-role="overdue-tbody"></tbody>
+            </table>
+            <template id="overdue-tasks-tbody"></template>
+          </div>
+        </div>
+
+        <!-- Bottom Split Section -->
+        <div class="bottom-split-grid">
+          <!-- Center Stack -->
+          <div class="center-charts-stack">
+            <!-- Top Card: TIẾN ĐỘ TRUNG BÌNH -->
+            <div class="card-avg-progress panel-dark">
+              <h3 class="panel-title center">TIẾN ĐỘ TRUNG BÌNH</h3>
+              <div id="chart-avg-donut" data-chart="avg-progress"></div>
+            </div>
+
+            <!-- Bottom Card: TRẠNG THÁI -->
+            <div class="card-status-pie panel-status-gray">
+              <h3 class="panel-title center">TRẠNG THÁI</h3>
+              <div id="chart-status-pie" data-chart="status-pie"></div>
+            </div>
+          </div>
+
+          <!-- Right Card: SỬ DỤNG NGUỒN LỰC -->
+          <div class="card-resource-usage panel-dark" data-panel="resource-usage">
+            <h3 class="panel-title center">SỬ DỤNG NGUỒN LỰC</h3>
+            <div id="chart-resource-usage" data-chart="resource-usage"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       EXTENDED WORKSPACE VIEWS
+       ===================================================================== -->
+  <section id="view-tasks" class="workspace-view" hidden></section>
+  <section id="view-kanban" class="workspace-view" hidden></section>
+  <section id="view-gantt" class="workspace-view" hidden></section>
+  <section id="view-resources" class="workspace-view" hidden></section>
+
+  <!-- =====================================================================
+       FLOATING EXIT PRESENTATION MODE BUTTON
+       ===================================================================== -->
+  <button
+    type="button"
+    id="btn-exit-presentation"
+    class="exit-presentation-btn presentation-exit-btn"
+    onclick="window.ITPM && window.ITPM.io && window.ITPM.io.togglePresentationMode(false)"
+    title="Thoát chế độ trình chiếu (Phím Esc)"
+  >
+    ✕ Thoát Trình Chiếu (Esc)
+  </button>
+
+  <!-- =====================================================================
+       MODAL & TOAST CONTAINERS
+       ===================================================================== -->
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-container"></div>
+
+  <!-- =====================================================================
+       SCRIPTS IN EXACT DEPENDENCY ORDER
+       ===================================================================== -->
+  <script src="js/data-seed.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/dashboard-view.js"></script>
+  <script src="js/modals.js"></script>
+  <script src="js/views-extended.js"></script>
+  <script src="js/io-export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
